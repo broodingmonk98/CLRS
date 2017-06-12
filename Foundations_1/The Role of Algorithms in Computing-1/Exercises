@@ -1,5 +1,5 @@
 1.1.1
-A real world example of sorting is sorting a list of examination candidates alphabetically based on name. Convex hull might be used to group data of certain type together.
+A real world example of sorting is sorting a list of examination candidates alphabetically based on name. Convex hull might be used to group data of certain types together.
 
 1.1.2
 Other than speed, memory usage is also an important criterion for judging an algorithm's performance.
