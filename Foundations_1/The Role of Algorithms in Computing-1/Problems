@@ -1,0 +1,16 @@
+1
+(box size 8*7)
+	s	min	hour	day	month	year	centuary
+lg n:  10^(10^6)inf	inf	inf	inf	inf	inf
+rt n:  10^12	3.6E15	inf	inf 	inf	inf	inf
+   n:  10^6	6E7	3.6E9	8.4E11	2.5E13	3E14	3E16
+nlgn:-----practically the same, maybe lesser by one order of magnitude----	
+ n^2:  1000	8E3	6E4	3E5	1.5E6	5E7	5E8
+ n^3:  100	300	1000	3000	1E4	7E4	3E5
+ 2^n:  20	26	32	36	40	48	55
+  n!:  10	11	13	14	15	16	17
+
+The numbers are wildly approximate. inf used whenever it got relatively too larrge for the row
+
+
+END

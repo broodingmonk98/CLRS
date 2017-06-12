@@ -1,0 +1,32 @@
+1.1.1
+A real world example of sorting is sorting a list of examination candidates alphabetically based on name. Convex hull might be used to group data of certain type together.
+
+1.1.2
+Other than speed, memory usage is also an important criterion for judging an algorithm's performance.
+
+1.1.3
+Stacks are one of the simplest data structures, their main advantage being simplicity and fast pushing and popping time. They are used extensively for recursion. 
+One of their downsides are that they support a very limited set of operations, and searching in a stack is very slow.
+
+1.1.4
+Both the travelling salesman and the shortest path algorithms are trying to minimize distance in a graph.
+In the travelling salesman, we have to find shortest path through all nodes of the graph, while in shortest path, we only have to find a shortest path between two points, which doesn't need to, and generally doesn't, go through all nodes.
+
+1.1.5
+A critical function, which is used frequently as a subroutine, has to be the very best.
+While writing a program to initialize and startup things, a close enough solution will do. In real life, path minimization, a close enough solution is generally adequate.
+
+
+
+
+1.2.1
+A mail app, which needs to check in to the server,  but wants to minimize bandwidth. This app shall need to decide when to check in with the server, so as to minimize bandwidth usage, while keeping the user updated at the same time. The algorithm decides when to ping the server.
+
+1.2.2
+Given: Insertion sort: 8n^2 and mergesort: 64nlgn
+So merge sort beats insertion sort for n>4
+
+1.2.3
+for n>=15 an algorithm with 100n^2 beats one wiht 2^n.
+
+

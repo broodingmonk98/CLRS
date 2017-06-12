@@ -1,0 +1,11 @@
+As the title suggests this chapter tells us about the importance of the knowledge of algorithms in today's world, despite of modern breakthroughs such as extremely fast computers, and large omounts of memory being available, people focusing less and less on performance. Its gives the main motivation behind studying algorithms.
+
+1.1
+
+An algorithm essentially describes a series of computational steps to be taken to convert a given input to the desired output. Examples include sorting algorithms, who taken an array as an input and output the same list of numbers, but in sorted order. A few places where algorithms are used these days include the human genome project, the internet, e-commerce, manufacturing decision making, shortest path in maps etc. Areas of research today include parallelism, NP completeness and data structures.
+
+1.2
+
+Even if computers were inifnitely fast, and had infinite memory, algorithms are important to show correctness of the program. However computers are only finitely fast, and have finite memory, both of which act as constraints, and we should make use of these limited resources wisely. Speed in computers is achieved by choosing fast algorithms as well as hardware improvements, and not exclusively due to the latter. A lot of things, which don't seem to use algorithms, generally are using algorithms underneath the hood. Examples include GUIs, networking, high level languages, etc.
+
+END
