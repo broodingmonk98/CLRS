@@ -1,0 +1,15 @@
+
+2.1
+
+This section introduces pseudo code, and the concept of a loop invariant to prove correctness of an algorithm. They use the example of insertion sort, to demonstrate these concepts. A loop invariant is true prior to entering the loop, during loop execution and after loop termination. Upon loop termination the loop invariant generally solves the problem at hand. Look at programs, "Insertion sort.c" for the code for insertion sort. This program sorts numbers into non decreasing order.
+
+2.2
+
+The ram model is most prevalent and one of its key assumptions is random access to memory. It also comes with a few basic operation set, all of which are assumed to take constant time for the purpose of analysis. We ignore the lower order terms and constanats instead focusing on the order of growth. We consider the worst case behaviour or an algorithm, generally, as opposed to best or average case behaviour.
+
+2.3
+
+Insertion sort used an incremental approach, wherein we successively increase the amount of the array that is sorted. This section introduces merge sort, which follows a divide and conquer method, which consists of three main steps, the first being dividing the problem into two or more sub problems, the second, conquering the smaller easier to solve sub problems, and finally combining the sub problesm to solve the original problem. Merge sort basically divides the array into two halves, and sorts them by calling itself, and recombines the two sorted halves, by merging them in theta(n). Overall its complexity is theta(n log n) based on the recurrence T(n) = 2 T(n/2) + theta(n); Refer to Merge Sort.c in the programs folder, for the code for merge sort. This code doesn't use sentinels since they would be quite inefficient to implement in c. Instead this is the code for exercise 2.3.2
+
+
+

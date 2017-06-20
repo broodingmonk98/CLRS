@@ -1,0 +1,62 @@
+Problem 1:
+
+a) Insertion sort has a run time of theta(n^2). Since each of the sublists have length of k, insertion sort will take time theta(k^2) and since there are n/k of these sublists, the total run time will be theta(n/k * k * k) = theta(nk).
+
+b) Two merge two lists takes time proportional to the lengths of the lists, which in this case is k. In this recurrence the merging step does the same amout of work in each level, and the number of levels will be equal to the number of sublists which is n/k. There height of the tree will be theta(log(n/k)) and at each level the total amount of work is the total number of elements in all the subarrays which is n. therefore the total work done in merging is theta(n log(n/k) ).
+This can be re written as theta(n log(n) - n log(k)), so the reduction in merging work is represnted by the - n log(k) factor in the theta notation.
+
+c) Total work done by the algorithm is work done in all the base cases + work done in merging which is theta(nk + nlog(n/k)). It looks like k can be O(log n), or otherwise the complexity of this algorithm will be worse than the original merge sort.
+
+d)One can just choose a constant value of k, based on trial and error, which ever results in the smallest practical runtime of the algorithm.
+
+Problem 2:
+
+a) to show that bubble sort actually sorts, we just have to show that it terminates and that it produces the correct output. We can see that it terminates since the two loops are both finite in any given iteration with no possibility of becoming infinite, since the loop variables aren't being changed within the loop, and the outer one executes only n-1 times while the inner one executes a maximum of n-1 (a finite number) of times. Therefore it terminates. To show that it produces the correct output we have to show A'[1] <= A'[2] ...<= A'[n]. We'll show this in the next part of the problem.
+
+b) At the start of each iteration of the outer for loop, the first i elements of the array are sorted and the elements in this subarray are smaller than any of the eleemnts in the rest of the array.  This is the loop invariant. Proof:
+Initialization: This is trivially true for i=1, when the subarray under consideration is empty..
+Maintainece   : If after the i th iteration, the first i elements are sorted, then in the i+1th iteration, the inner loop runs from n to i+1 and by successivelyswapping consequetive eleemnts out of places, causes the smallest element in the array from i+1 to n to bubble down to the i+1 st spot, and since previously the first i elements were smaller than any of the elements in the remaining array, the i+1st element is greater than the first i elements of the array, and so now the subarray upto i+1 is sorted, and each of the elements in it are smaller than the ones in the remaining part of the array.
+Termination   : After n-1 iterations, the array upto n-1 is sorted and the n th element is larger than any of the n-1 elements before it, and so the entire array of n elements are sorted by termination.
+
+c) Using the loop invariants termination condition, we see that in the end the whole array will be sorted. (I mixed up proof of loop invariant and proof of algorithm. Won't happen again).
+
+d) The outer loop runs n-1 times. The inner loop runs n-i-1 times for each iteration of the outer loop. So totally the inner loop is executed 1 + 2 + 3 ... + n times, and so the work done is theta(n^2). It is asymptotically the same, but practically insertion sort is better, since its swapping is more efficient, and its best case is theta(n).
+
+
+Problem 3:
+
+See programs section for the code.
+a) This code fragment runs in time theta(n) since the only loop construct executes a fixed number of times which is n.
+
+b)Pseudocode for polynomial evaluation
+
+let a be the list of coefficients of the polynomial index as a_i.
+let y store value of the polynomial.
+
+for i = 0 to n-1
+	let xi = 1
+	for j = 1 to i
+		xi *= x;
+	y += a_i * xi;
+return y
+
+The running time of this algorithm is theta(n^2). It repeatedly calculates x^n from stratch even though we have already calculated x^(n-1).
+
+c) The given loop invariant: y = Summation_0-n-i-1  a_{k+i+1} x^k
+
+Initialization : for i = n, the sum runs from 0 to -1 and so is trivially 0.
+Maintenance    : if the loop invariant holds for the first i iterations, then for the i+1 st iteration, the y = a_i + x*y, therefore in the summation each of the previous coefficients get an extra x, moving up one place in the summation and the constant term a_i is added..
+Termination    : At the end i = 0, the limits of the sum become 0 to n-1 and therefore it becomes Summation_0-n a_k x^k.
+
+d)  Hence since this is the desired polynomial expression, it is correctly evaluated by Horners Algorithm.
+
+Problem 4:
+
+Inversions.
+a) inversions of <2,3,8,6,1> are the pairs (2,1) , (3,1) , (8,6) , (8,1) , (6,1)
+
+b) The array which is in descending order will have the maximum number of inversions equaling n*(n-1)/2, which is equal to the maximum number of ordered pairs than can be picked from the set itself.
+
+c) The number of inversions is equal to the number of iterations of the inner loop of insertion sort - n. Insertion sort works by inserting the element into the correct position in a sorted subarray, and the distance moved by the element will be the number of its inversions. So essentially every inversion will get reversed, one at a time. 
+
+d) We keep a count, to count the total number of inversions. Initially it is 0.   During the merging step, if an element of the second subarray is being added while there are still i elements left in the first subarray, we add the element to the temporary array and increase count by i. This simple one line addition of code can count the number of inversions.
