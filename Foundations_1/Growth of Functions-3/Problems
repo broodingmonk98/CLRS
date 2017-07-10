@@ -1,0 +1,113 @@
+Problem 1:
+a) if k>=d then p(n) is O(n^k).
+Proof: we need to find a  c2 and an n0 such that
+	 p(n) < c2 n^k for all n
+	If we divide both the sides by n^k
+	 p(n)/n^k < c2
+	Now since the degree of p(n) is less that k, no term in p(n)/n^k will have a positive exponent and so they shall asymptotically tend to 0. Therefore setting c2 as the sum of coefficients of the polynomial +1 we shall get the desired inequality.
+
+b)if k<=d then p(n) is omega(n^k)
+Proof: we need to find a c and an n0 such that
+	0< c n^k < p(n)  for all n>n0
+	Dividing both sides by n^k
+	0< c < p(n)/n^k		Since degree of p(n) > k there is atleast one term with a non negative exponent of n. Since each coefficent is less than 0, setting c = a_d -1 i.e. coefficient of the highest term shall ensure that the inequality holds for all n> 0
+
+c) if k==d then p(n) is O(n^k) and omega(n^k) hence it has to be theta(n^k).
+
+d) if k>d then p(n) is o(n^k)
+Proof: For every c we need to find n0 such that
+	0 < p(n) < c n^k  for all n>n0
+	So dividing by n^k
+	0 < p(n)/n^k < c	Since degree of p is less than k, all terms shall have a negative exponent. Therefore for the given c, taking n0 as p(0)/c + 100 We shall get the desired inequality.
+
+e) if k<d then p(n) is w(n^k)
+Proof: For every c we need to find n0 such that 
+	0< n^k c < p(n)		Dividing both sides by n^k
+	0< c < p(n)/n^k		Since degree of p > k, coefficient of a_d will have a positive exponent and will be n_(d-k). Since All other terms shall be of degree less than this We can take the right hand side as theta(n^x) where x = d-k And now we can just show that 0<c<theta(n^x), which is clearly true since given any c we can find a n0 such that n^x > c for all n>n0
+
+Problem 2:
+		O	o	omega	w	theta
+a lg^kn  n^e	yes	yes	no	no	no
+b n^k    c^n	yes	yes	no 	no 	no
+c rt(n) n^sin(n)no	no	no	no	no
+d 2^n	2^n/2	no	no	yes	yes	no
+e n^lgc c^lg n  yes	no 	yes	no	yes
+f lg(n!) lg(n^n)yes	no	yes	no	yes
+
+Problem 3:
+n^(1/lg n) 	1
+lg(lg* n)
+lg*(lg n)	lg* n
+2^(lg* n)
+ln ln n 
+root(ln n)	2^(root(2 lg n))
+ln n
+lg^2 n
+root(2) ^ lg n
+2^lg n		n		
+lg(n!)		n lg n
+n^2 4^lg n
+n^3
+(lg n)!
+n^(lg lg n) 	(lg n)^lg n
+1.5^n
+2^n
+n*2^n
+e^n
+n!
+(n+1)!
+2^2^n
+2^2^(n+1)
+
+Functions in the same line are theta of each other.
+
+b) 2^2^(n sin n )
+
+Problem 4:
+a) False. Take example of f(n) = n and g(n) = 2^n
+b) False. Take f(n) as n and g(n) as 2^n
+c) True. but the converse need not be true. 
+	Proof: f(n) = O(g(n)) implies existance of a c and an n0 such that
+		f(n) < c g(n) for all n>n0
+		Now taking log on both sides since log is a strictly increasing function the inequality still holds
+		log f(n) < log( c g(n)) for all n>n0
+		log f(n) < log c + log g(n) for all n>n0
+		Since we have found a c and an n0 for which this equation holds
+		log(f(n)) is O(log(g(n))).
+d)True.
+	Proof: similar argument as the previous one but take exponents on both sides and break up 2^(c g(n)) as 2^c * 2^(g(n)) and So we have found the c = 2^c0
+e)False. take f(n) = 1/n
+f)True.
+	Proof: if f(n) is O(g(n)) then there exists c and n0 such that
+		f(n) < c g(n) for all n>n0
+		and so f(n) / c < g(n) for all n>n0
+		and so setting c1 = 1/c and taking n0 as is we also satisfy the criterion for g(n) to be omega(f(n)).
+g)False. Take f(n) to be an exponential function.
+h)True. Let g(n) be some o(f(n)), then f(n) + g(n) < f(n) + cf(n) for some c and n> some n0, at this point we get f(n)(c+1) = theta(f(n)). We have now shown that it is O(f(n)). To show that it is also omega(f(n)) take 1/2 f(n). This will be less than f(n) and so also less than f(n) + g(n). So it is theta(f(n)).
+
+Problem 5:
+a)
+We see that f(n) = O(g(n)) or f(n) = omega8(g(n)) or both is not true in the case of omega(g(n)) in place of omega8 since if there is a function g0(n) which is w(f(n)) and we define g(n) = g0(n) for odd n and 0 for even n, then in this case f(n) is neither O(g(n)) or omega(g(n)). However this is not true in case of omega8.
+To prove the statemente we show that f(n) != O(g(n)) implies that f(n) is omega8(g(n)). So if f(n) is not O(g(n)) then there exists no c and n0 such that 
+	f(n) <= c(g(n)) for all n>n0
+but this means that f(n) > c(g(n)) for some c and n>some n0. let that n be n1, now moving n0 after n1, to n0>n1 still the first inequality doesn't hold meaning there is some n2 for which its not satisfied. So as we keep on moving n0, for the same c, we find infinitely many points n_i for which the second inequality holds.
+So here we have essentially proved that f(n) != O(g(n)) -> f(n) = omega8(g(n)).
+So If the antecedent is false, then the consequent is true. and so atlesat one of the relationships should hold.
+
+b) The advantage of omega8 in place of omega, is that it gives a nice dual to the O notation, so that something like the law of trichotomy holds in asymptotic notation as well, i.e. a either > b or < b or = b. However the disadvantage is that we can't really lower bound something in this manner, since it takes on values sometimes higher than our lower bound.
+c) If we replace O' for O, the if part shall remain the same, since O' is a stronger condition than O, whereas the only if part may not hold. 
+d)soft omega = {f(n): there exist c, negative k and positie vn0 such that
+		0< c g(n) log^k n < f(n)}
+ soft theta =  {f(n): there exist c1,c2, real k and positive n0 such that
+		c1 g(n) log^k(n) < f(n) < c2 g(n) log^k(n).}
+
+Problem 6:
+	f(n)	c	f*_c(n)
+a)	n-1	0	n
+b)	lgn	1	lg*(n) which is number of 2s in n = 2^2^2^2...
+c)	n/2	1	lg n
+d)	n/2	2	lg n -1
+e)	rt(n)	2	lg lg n 
+f)	rt(n)	1	infinity, it will never reach 1
+g)	n^1/3	2	lg lg_3 n
+h)	n/lg n	2	lg n

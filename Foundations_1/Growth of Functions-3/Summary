@@ -1,0 +1,12 @@
+3.1
+
+This section introduces the concepts used to represent the growth in size of functions. A function f(n) is theta(g(n)) iff there exists constants c1 c2 and n0 such that c1 g(n) < f(n) < c2 g(n) for all n>n0.
+	Similarly a function is O(g(n)) if it is asymptotically smaller than or equal to g(n) and it is omega(g(n)) if it is asymptotically greater than or equal to  g(n).
+A function is o(g(n)) if for every c>0 there exists a n0 such that 0<f(n)<c g(n). Similarly it is w(g(n)) if it is asymptotically greater than g(n).
+theta() ~ =	O() ~ <=	omega() ~ >=	o() ~ < 	w() ~ >
+All are transitive, the first three are reflexive and the first is symmetric. The second and third are complements while the last two are complements to each other as well. However the law of trichotomy doesn't hold.
+
+3.2
+
+Here we are introduced to a few functoins, and their properties. Monotically increasing/decreasing strictly increasing/decreasing definitions, Floors and Ceilings and their properties, Modular arithematic notion, Polynomials, exponentials and factorials, and their approximate value using the sterling approximation.
+	Functional iteration f^(i)(n) is n if i =0 or f(f^(i)(n)) otherwise. The iterated log lg*n is min{i>=0:lg^(i)n<=1} and is a very slowly growing function. Fibonacci numbers are given by F0 = 0, F1 = 1 and Fn = Fn-1 + Fn-2 if n>=2. The Golden Ration is given as the roots of x^2 - x - 1 = 0 and is equal to phi = (1+root(50))/2 and phi^ = (1-root(5))/2. The nth Fibonacci number Fn = phi^n - phi^^n/root(5). Fibonacci numbers grow exponentially.
