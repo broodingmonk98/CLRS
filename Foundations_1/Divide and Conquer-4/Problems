@@ -1,0 +1,82 @@
+Problem 1:
+a) T(n) = 2T(n/2) + n^4
+By case three of master theorem T(n) = theta(n^4)
+b) T(n) = T(7n/10)+ n.
+By case three of master theorem T(n) = theta(n)
+c) T(n) = 16T(n/4) + n^2
+By case two of master theorem T(n) = theta(n^2 lg n)
+d) T(n) = 7T(n/3) + n^2
+By case three of the master theorem T(n) = theta(n^2)
+e) T(n) = 7T(n/2) + n^2
+By case one of the master theorem T(n) = theta(n^log_2(7))
+f) T(n) = 2T(n/4) + root(n)
+By case two of the master theorem T(n) = theta(n^0.5 lg n)
+g) T(n) = T(n-2) + n^2
+This will have the sum Sum_i[1:n/2] (i^2) and this is the sum of first n/2 squares of natural numbers and so has theta(n^3) dependence.
+
+Problem 2: 
+a) Case 1: pointer passing: has recurrence T(n) = T(n/2) + theta(1) and has solution theta(lg n).
+   Case 2: passing by array copying, recurrence T(n) = T(n/2) + theta(n) and has solution theta(n)
+   Case 3: passing only subrange: T(n) = T(n/2) + theta(n/2) and this has the same solution as above i.e theta(n), although it may be better of if we consider the constant factors.
+
+b) Case 1: pointer passing: Recurrence T(n) = 2T(n/2) + theta(n) and has the usual solution of theta(n lg n).
+   Case 2: array passing  : Recurrence T(n) = 2T(n/2) + theta(3n) and this has the solution of theta(n lg n) itself.
+   Case 3: subarray passing: RecurrenceT(n) = 2T(n/2) + theta(n+2*n/2) and this also has the solution of theta(n lg n).
+
+Problem 3:
+a) T(n) = 4T(n/3) + nlg n -> T(n) = theta(n^log_3(4)) by case one of master thm
+b) T(n) = 3T(n/3) + n/lg n-> T(n) : using a recursion tree, and summing we get
+Sum (n/(lg n - i)), taking n out, we get n Sum(1/c-i) lg n times (c = lg n)
+and so we get it to be theta(n lg lg n). 
+c) T(n) = 4T(n/2) + n^2.5 -> T(n) = theta(n^2.5) by case three of master thm
+d) T(n) = 3T(n/3 -2) + n/2-> By using recursion tree and substitution one can verify that T(n) will belong to theta(n lg n)
+e) T(n) = 2T(n/2) + n/lg n similar to part b) of this same problem, we end up getting theta(n lg lg n) 
+f) T(n) = T(n/2) + T(n/4) + T(n/8) + n, one can verify that this will be upper bounded by T(n) = 2T(n/2) + n, and so T(n) = O(n lg n). Clearly it has to be Sigma(
+g) T(n) = T(n-1) + 1/n. By using recursion tree T(n) = theta(lg n)
+h) T(n) = T(n-1) + lg n. By using recursion tree T(n) = Sum(lg i) = log(PI(i)) =theta(log(n!)) = theta(n lg n).
+i) T(n) = T(n-2) + 1/lg n. By using recursion tree T(n) = Sum(1/lg i) = Sum(lg_i2) we note that due to the concave shape of log, most of the terms in the log i series upto n lie above log i /2, and so using that we upperbound log by n log n /2  and so we lower bound the sum to be greater than 2n/log n. We can uppper bound the sum by n so I'd guess it would be something like theta(n /lg n) idk.
+j) T(n) = root(n) T(root(n)) + n. This sum, using recursion tree, will lhave lg lg n terms, and each term will have the same power of n, namely n itself, so we shall get theta(n lg lg n) which is easily verifible using the substitution method.
+
+Problem 4:
+a) F(z) = z + zF(z) + z^2F(z)
+   F(z) = 0 + z + z^2 + 2z^3 + 3z^4 ...
+   multiplying by z shifts this series one step to the left, and z^2, two steps to the left. Once we add these two, by the definition of Fibronacci series, from the third term onwards we get back the terms, the z and the second term of zF(z) shall supply the first two terms. Hence the equality holds.
+
+b)Using the above equation and rearranging we get F(z) (1-z-z^2) = z
+  therefore clearly F(z) = z/(1-z-z^2). 
+  Now this will have the form F(z) = z/(1-phi z)(1-phi_hat z).
+  Taking partial fractions, F(z) = 1/root(5) (1/(1-phi z) - 1/(q-phi_hat z))
+  having solved for phi we get phi = (1+root(5))/2 and phi_hat = (1-root(5))/2
+
+c)F(z) = Sum_i[0:inf] (1/root(5) (phi^i - phi_hat^i)z^i )
+  using values of phi and phi_hat, and expanding the powers, we see that the terms in which root(5) has an even power cancel out, the others double, so we get 
+  1/root(5)(phi^i - phi_hat^i) = 1/2^i (2i + iC_3 *5 + iC_5 *10 ...) and this boils down to the i th fibronacci number, as can be verified by induction.
+  and so the above sum gives us the series.
+d) from part see it directly follows that F_i will be phi^i/root(5) since the phi_hat term is <1 and so any power of it, more so after being divided by root(5) will be less than 1, and the sum of the two should be an integer, so since phi_hat^i < 1, dividing it by root(5) shall give us something lesser than 1/2, and so if we then round it off, we shall get the actual integer itself.
+
+Problem 6
+
+a) The only if part is trivial, since we can just consider the 2x2 part and apply the condition for Monge. To prove the if, i.e. the sufficient part, take an i,k (columns) and j and l (rows), and we see that by the transitivity of <=, the result follows.
+
+b) 37 23 22 32
+   21  6  7 10
+   53 34 30 31
+   32 13  9  6
+   43 21 15  8
+   This is not Monge, using a) to make it monage, check whether a[i][j]-a[i][j+1] <= a[i+1][j]-a[i+1][j+1]. we change 22 to 25, now it is monage.
+   37 23_25_32
+   21  6  7 10
+   53 34 30 31
+   32 13  9  6
+   43 21 15  8
+
+c) f(i) is the index of the column contain the leftmost minimum element of row i. Now if an array of size mxn is monage, then it has m rows, and f(i), i can range from 1 to m. Now for a monage array, rearranging the condition we get
+a[i][j] - a[i][j+1] <= a[i+1][j] - a[i+1][j+1]
+So now if the j = f(i+1), then the column on top will necessarily have a negative value, and so the previous row should also have a negative difference at that point. Going back to our original definition, we see that this negative difference should be there for all j'>j and not only for j'=j+1, and so that will happen if f(i) = f(i+1) or maybe if f(i)<f(i+1). But if f(i) > f(i+1) then taking the difference between j and f(i) shall give a positive number, which is not less than or equal to the negative number.
+
+d)Once we have calculated the min position in each even row, we know that the min in the odd row will be between the min of the row above and below it, and so while checking for all the rows, we need only go through the  2n times, and so since we have to go through each row, and totally go through 2n column indices we get the running time for this to be O(n+m). We don't write theta, because if all the minima are in the same column then it shall only take theta(m) time.
+
+e) T(m,n) = T(m/2,n) + O(n+m) since n does not change, we treat it as constant so we get:
+  T(m) = T(m/2) + theta(m) and solving this we get theta(m) by case 3 of the master theorem, and now taking into account the n term, we see that O(n+m) is applied ln m times (opening up the recurrence), and so we finally lget O(m + n lg m).
+
+  See program folder for the code for Monage array.

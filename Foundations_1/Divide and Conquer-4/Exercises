@@ -1,0 +1,216 @@
+4.1.1
+FIND-MAXIMUM-SUBARRAY will return the largest element, that is the least negative element in the array.
+
+4.1.2
+Check Programs section under 4.1.2.c
+4.1.3
+Check Programs section under 4.1.3.c . The crossover point for my implementation is ~50. Changing the base case as given will result in an absolutely better algorithm than either of the two.
+
+4.1.4
+The program implemented by me allows 0 to be the answer. In the program given in the text, change the second for loop of the FIND-MAX-CROSSING-SUBARRY() procedure from j=mid+1 -> j=mid. This will allow 0 as a possibility. (Pg :71 3rd edition CLRS);
+
+4.1.5
+See Program section under 4.1.5.c . The key idea is that the temorary solution is in the first i-1 elements, or it is the array between the min element of the array till i-1 and the i. 
+
+
+4.2.1
+| 1 3 || 6 8 |
+| 7 5 || 4 2 |
+S1 = B12-B22 = 8-2 = 6;	S2 = A11+A12 = 1+3 = 4;	S3 = A21+A22 = 7+5 = 12;
+S4 = B21-B11 = 4-6 =-2;	S5 = A11+A22 = 1+5 = 6;	S6 = B11+B22 = 6+2 = 8;
+S7 = A12-A22 = 3-5 =-2;	S8 = B21+B22 = 4+2 = 6;	S9 = A11-A21 = 1-7 =-6;	
+S10= B11+B12 = 6+8 = 14;
+P1 = A11S1 = 6;	P2 = S2B22 = 8;	P3 = S3B11 = 72;	P4 = A22S4 =-10;
+P5 = S5 S6 =48; P6 = S7 S8 = -12;	P7 = S9 S10 = -84;
+C11 = P5 + P4 - P2 + P6 = 18
+C12 = P1 + P2 		= 14
+C21 = P3 + P4		= 62
+C22 = P5 + P1 - P3 - P7 = 66
+
+4.2.2
+Check actual code in programs folder under strassens.c
+
+4.2.3
+if we have an n*n matrix where n is not in the form 2^w then we can partion n into matrices of size |_ n _|*|_ n _| where |__| is the greatest integer function, and so A11 is of this size as is B12. The rest will partion naturally around these two partions. Then we can show that the resulting matrices are multipliable. The running time will not be affected by such changes.
+
+4.2.4
+Basically we want the recurrence T(n) = 27T(n/3) + theta(n^2) which gives log_3(27) = 3. We want this to boil down to something that gives lg 7. So we need log_3(x) <= log_2(7) --> x or in this k, has to be 21 or less.
+
+4.2.5
+for 68*68 matrices we get T(n) = 132464 T(n/68) + theta(n^2).
+for 70*70 matrices we get T(n) = 143640 T(n/70) + theta(n^2).
+for 72*72 matrices we get T(n) = 155424 T(n/72) + theta(n^2).
+Taking log_b(a) they all give around the same answer, close to 2.795. However the second one is very slightly better followed by the first one. Finally Strassens with log_2(7) gives 2.807, so these are better than Strassen's algorithm.
+
+4.2.6
+We would break the first matrix into k matrices in the obvious way, and the second one also into k matrices in its own obvious way. Now we could call strassen's to multiple each n^2 matrix so generated. That would give us k^2 matrices to multiply each taking theta(n^lg(7)), so theta(k^2 n^lg(7)).
+If the order of the input were reversed then we could not apply strassen's directly, and so we will be stuck with theta(k^2n^3) (atleast I couldn't think of a way to apply Strassen's to it).
+
+4.2.7
+This can be done using the karastruba algorithm. It goes as follows:
+a+bi * c+di = ac-bd + i(bc+ad) This straightforward method requries 4 multiplication of reals, but the karastuba algorithm does the following:
+multiplly ac, bd, (a+b)(c+d) = ac+ad+bc+bd. Now we can directly find ac-bd. To compute bc+ad, we do the following: (a+b)(c+d) - ac - bd. This gives us bc+ad and we are done. 
+
+
+4.3.1
+T(n) = T(n-1) + n : O(n^2)
+Proof: Assume the solution is O(n^2).
+So T(n) < c n^2		for some c, and all n>1
+This is true for T(1) = 1 < c if c>1
+If its true for T(n/2), then for T(n)
+T(n) = T(n-1) + n < c (n-1)^2 + n = cn^2 - 2cn + c + n = cn^2 - (c-1)n - c(n-1)
+So T(n) < cn^2	for c>1 and n>1, therefore T(n) = O(n^2).
+
+4.3.2
+T(n) = T(n/2) + 1 : O(lg n).
+Proof: For n = 2 and c>2, T(n) = 2 < c lg2
+Let it be true for T(n') upto T(n),
+T(n) = T(n/2) + 1 = c lg(n/2) + 1 = c lg(n) - c lg(2) + 1 = c lg(n) - c + 1.
+So T(n) < c lg(n) for c > 1.
+Therefore T(n) = O(lg n)
+
+4.3.3
+We know that T(n) = 2T(n/2) + n is O(n lgn). We now prove that it is also Sigma(n lgn):
+Proof: Let T(n') be Sigma(n' lg n') for all n' upto n.
+T(n) = 2T(n/2) + n > 2c (n/2)lg(n/2) + n = cn lgn - cnlg2 + n > cn lgn for c < 1 Therefore we have T(n) = Sigma(n lg n).
+So we now have T(n) = theta(n lg n).
+
+4.3.4
+For T(n) = 2T(n/2) + n, since we have the guess as O(n lg n), proving base case n = 1 will not be possible, bcoz lg 1 = 0. We can either take a difference base case, or alter our O(n lg n) = c n lg(n) to c n lg(n) + 5. Now we can still prove the relation in a similar manner, and it will also work for the base case of n = 1.
+
+4.3.5
+For merge sort, we have the recurrence T(n) = T(|_n/2_|) + T(|-n/2-|) + theta(n)
+T(|_n/2_|) < T(|-n/2-|) so, we show that T(n/2) = 2T(|_n/2_|) + theta(n) has a lower bound of Sigma(n lg n) and T(n/2) = 2T(|-n/2-|) + theta(n) has an upper bound of O(n lg n). And we are done.
+
+4.3.6
+T(n) = 2T(n/2 + 17) + n :O(n lgn)
+Proof: Let T(n') < c n lg(n)-n  for all n' < n, and n' > 20, c>1
+T(n) :
+T(n) < 2 c (n/2+17) lg(n/2+17) - 2(n/2+17) + n = cn lg(n/2+17) + 34c lg(n/2 +17) + 34 < cn lg (n) - cn lg(2) + 34c lg(n/2) < cn lg(n) for all n>34 lg(n/2).
+(Not sure if I can end it here but chuck it)
+
+4.3.7 
+T(n) = 4T(n/3) + n : theta(n^log_3 (4))
+Let a := log_3(4)
+Let T(n') <= c n'^a for all n' < n
+T(n) = 4 c (n/3)^a + n = 4c n^a/3^a + n = c n^a (4/3^a +1/c n^(1-a)) = c n^a (1 + 1/c n^(1-a)) which is > c n^a. And so our substitution fails to do what we meant for it to do.
+Assume instead that T(n') <= c n'^a - 3nb for all n'<n
+Now T(n) = 4 c (n/3)^a - 4nb + n  	proceeding as above we get
+T(n) = c n^a (1 + 1/c * n^(1-a) - 4b/c n^(1-a) < c n^a if 4b > 1
+Hence proved :
+
+4.2.8
+T(n) = 4T(n/2) + n  : T(n) = O(n^2)
+Proceeding just like in the last question, 4.3.7, taking T(n) < c n^2
+T(n) = 4 c (n/2)^2 + n = c n^2 + n > T(n)
+However if we take T(n') < c n^2 - bn
+T(n) = 4 c(n/2)^2 - 4b n/2 + n = c n^2 + n(1 - 2b) < c n^2 for all b>1/2
+Hence we have showed that T(n) = O(n^2)
+
+4.3.9
+T(n) = 3T(n^0.5) + log n  Let n = 2^m
+T(2^m) = 3T(2^(m/2)) + m
+say S(m) = T(2^m)
+S(m) = 3 T(m/2) + m  This has solution theta(n^log_2(3))
+T(n) = T(2^m) = S(m)
+Therefore T(n) has theta(n^log_2(3)) running time.
+
+
+4.4.1
+The tree will have three children per node, and each node will have a size n/2.
+When we sum over all levels we get Sum_i(n + 3*n/2+ 9*n/4 ... + 3^lg(n)). Since the GP has a constant ratio > 1, the leaves will bear most of the cost. So the asymptotic running time will be 3^lg(n) or equivalently n^lg(3).
+We can easily verify the claim using substituion method.
+
+4.4.2
+The tree in this case will have only one children, and each node will have a cost proportional to n^2
+So the sum here would be Sum_i(n^2 + (n/2)^2 ... 1) = Sum_i(n^2(1/2^i)) = O(n^2)
+We know that this bound will be tight, because the first level itself has cost n^2 and so it will also be Sigma(n^2).
+Again we can easily verify this using the substitution method.
+
+4.4.3
+Aside : I have been taking too long to solve these things, so for brevity I'll keep things mostly intutive when dealing with non programming problems.
+
+T(n) = 4T(n/2 + 2) + n
+The tree has 4 children, and cost at each node of n.
+If you take the summation, it turns out that the +2 term only results in lower order terms, and won't affect the asymptotic running time. The dominant term ends up occuring in the leaves, and so we get an asymptotic running time of n^2
+
+4.4.4
+T(n) = 2T(n-1) + 1
+Here we get Sum(1 + 2 + 2^2 ....n times) and we get the solution as T(n) = O(2^n)
+Easily verifiable through substitution.
+
+4.4.5
+T(n) = T(n-1) + T(n/2) + n.
+Each node shall have two children, one of size T(n-1) and the other T(n/2). The n-1 node shall be much more dominant, and we can ignore the n/2 node. This is clearly seen if you take the sum: Sum( n + (n-1 + n/2) + (n-2 + (n-1)/2) + (n/2-1 + n/4) ...). Therefore the dominant path to the leaf will be one with n-1 all the way down, and this shall have height O(n) and cost per level n and so we get O(n^2) as the running time.
+
+4.4.6
+T(n) = T(2n/3) + T(n/3) + cn where c is a constant.
+Now each non leaf node will have two children one of size 2n/3 and the other n/3
+Taking the Sum(cn + 2nc/3 + nc/3 + 4nc/9 + 2nc/9 ....) The longest path will have height lg_3/2(n).
+Each node has a running time of cn and its child has a running time of 2cn/3 cn/3. Therefore each level of the tree shall have the same running time, as long as there are no empty slots, and this occurs upto a height of log_3(n), so summing we get T(n) = O(nlog(n)) + something. This something is due to the remaining part of the tree, that is those levels in which some nodes are missing. Now we can see that the cost of each of those levels is strictly less than the cost of the level above them, and so we have a decreasing sum, and this goes on upto height log_(3/2)(n), and so we get T(n) = O(n log_3/2(n)) i.e O(n lg n) and one can erify this using the substitution method.
+
+4.4.7
+The recursion tree for T(n) = 4T(n/2) + cn will have the sum
+Sum (cn + 4*(cn/2)=2*cn ... + 2^log_2(n) * n) and so we see that this is a GP with ratio greater than one, and so the cost of the tree, is concentrated at the leaves, and so we get T(n) = O(n^2)
+
+4.4.8
+T(n) = T(n-a) + T(a) + cn
+So this tree has two children per node, on of which further has children while the other is just a leaf node. So we get the Sum(cn + c(n-a) + ca + c(n-2a) + ca)...) = (cn + cn + cn .... n/a  times) and so we get T(n) = O(n^2).
+
+4.4.9
+As seem in problem 4.4.6, a tree of the form T(n) = T(an) + T((1-a)n) + cn will have an upper bound of the form nlog_max(1/a,1/(1-a)) (n) and lower bound nlog_min(1/,1/(1/a))(n) and so we shall get T(n) = theta(n log n)
+
+
+4.5.1
+a) T(n) = 2T(n/4) + 1 => case one applies and T(n) = theta( n^(1/2))
+b) T(n) = 2T(n/4) + n^0.5 => case two applies and T(n) = theta(n^(1/2) lg n)
+c) T(n) = 2T(n/4) + n => case three appleis and T(n) = theta(n)
+d) T(n) = 2T(n/4) + n^2   => again case three applies and T(n) = theta(n^2)
+
+4.5.2
+Strassen's takes theta(n^log_2(7)) time. 
+Since f(n) has the form theta(n^2) if case two or three applies, we would have beat the Strassen's algorithm. So assuming case 1 applies T(n) = theta(n^log_4(a)), and therefore to strictly beat it asymptotically we would need a < 7^2. Therefore the largest a we can have will be 48.
+
+4.5.3
+T(n) = T(n/2) + theta(1).
+Here a = 1 and b = 2. log_b(a) = 0. n^0 = 1. Therefore f(n) = theta(1) = n^log_b(a), and so case 2 applies.
+So we get T(n) = theta(n^0 log(n)) or theta(log(n)).
+
+4.5.4
+T(n) = 4T(n/2) = n^2lg(n) a=4 b=2 log_b(a) = 2 
+Since f(n) is not polynomially larger than n^2, we can't use master theorem hereInstead we use the recursion tree to upper bound it:
+T(n) = Sum_i(4^i (n/2^i)^2 log(n/2^i)) from i = 0 to log n
+     = Sum_i( n^2 log(n) -  n^2 log(2^i))
+     = n^2 Sum_i(log(n)) - n^2 Sum_i(i)
+     = n^2(log(n)^2 - 1/2(log(n)+1)(log(n)))
+     = n^2(log(n)^2 / 2 - 1/2 log(n))
+     = O(n^2 log(n)^2)
+
+4.5.5
+Consider T(n) = aT(n/b) + f(n) and lets take f(n) = n^0.5
+So it has to be polynomially smaller than n^log_b(a), so we need
+log_b(a) > 0.6 (say) and so a > b^0.6 for all b>1(othrwise it wont be incr func)
+and for it to not satisfy the regularity conditoin:
+a f(n/b) < c f(n) for some c<1
+a root(n/b) < c root(n)
+a/root(b) < c , this equation fails if a/root(b) >= 1
+that is a>=root(b), so take a = 2 and b = 3
+so ans_____________T(n) = 2T(n/3) + n^0.5 ________________
+has a f(n) = n^0.5 which is polynomially smaller than n^log_b(a) = n^0.631
+but this doesn't satisfy the regularity condition namely
+2 (n/3)^0.5 = n^0.5 * 2/root(3) > n^0.5 and so there is no c<1 for which this is true
+
+
+4.6.1
+We have to find a simplier expression for n_j = { n if j=0 and |-n_(j-1)-| if j>0} given that n_j is an integer. (I got this from stackexchange)
+for a and b positive integers, and some x we have
+	(|-x/a-| - 1)/b < x/ab<= |-x/a-|/b, let P = |-x/a-|, since this is an integer we can using euclid's algorithm write, P - q.b - r, then P> (q-1)b, so 
+P-1 >= (q-1).b and so we have, q-1<= (P-1)/b <x/aba<= P/b <= q. Therefore
+|-x/ab-| = |-1/b|-x/a-|-|. Doing this recursively we end up with the desired result.
+
+
+4.6.2
+As we saw in the previous exercise 4.5.4, the recurrence with f(n) = n^log_b(a) lg n ends up being theta(n^log_b(a) log^2 n). Using the same method we can get this bound T(n) = theta(n^log_b(a) lg^(k+1) n)
+
+4.6.3
+if f(n) satisfies the regularity condition, then the added condition f(n) = sigma(n^log_b(a) + eplison) is redundant in case 3 of the master theorem. To show this, assume f(n) satisfies the regularity condition. Then by iteratively applying the inequality we end up with a^j f(n/b^j) <= c^j f(n) for some j(and sufficiently large n). Now taking j = log_b(n), we get a^log_b(n) f(1) <= c^j f(n), and here the c^j can be written as n^log_b(c). Now this power log_b(c) has to be negative since c<1 and taking it to the other side it becomes the positive epsilon that we were after. Therefore the regularity condition is sufficient to show this later condition. (we assumed that the regularity condition holds all the way till n=1, which need not be true. But in such a case, the proof case easily be extended, by taking two separate terms, one upto which the regularity condition holds and the others being constant).
