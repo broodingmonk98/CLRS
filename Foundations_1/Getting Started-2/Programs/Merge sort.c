@@ -1,6 +1,7 @@
 
 //This program implements merge sort
 //It takes input n followed by n integers, and outputs the n integers in sorted order.
+//We Check comparison of programs folder in Module 2 for more details.
 #include <stdio.h>
 #include <stdlib.h>
 int *dummy;
