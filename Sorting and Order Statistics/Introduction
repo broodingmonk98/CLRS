@@ -1,0 +1,4 @@
+Here we consider the sorting problem, given a sequence of numbers, we want to find the permutation of thta sequence such that the sequence becomes monotone increasing.
+There might be some satillite date associated with every key which if we move things around will also need to be moved. In case this data is large, we sort the pointers instead, for efficiency's sake. Sorting is a natural problem arising in a variety of situations and has the added advantage of covering several topics in algorithm analysis, which shall help us study algorithms.
+A sorting algorith such as insertion sort, sorts in place if only a constant number of elements of the input array are ever stored outside the array. Merge sort doesn't sort in place while insertion sort does.
+The i th order statistic of a set of n numbers is the i th smallest number in the set. The last chapter in this section considers order statistics.
