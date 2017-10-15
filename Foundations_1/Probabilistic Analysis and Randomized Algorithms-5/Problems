@@ -1,0 +1,44 @@
+Problem 1:
+Expected value of the counter after n steps:
+We proceed by induction. This clearly holds for n=0.
+Assuming that it holds for n= n0,
+Expectation of the counter at n0+1 = E_n0 + E_increase = n0 + 0*(1-1/n_(n0+1)-n_n0) + 1*(n_(n0+1)- n_n0)/(n_(n0+1)-n_n0) = n0 + 1. Hence it holds
+
+b) Variance = E(X^2) - E(X)^2 
+   Variance of the increase is 99/100 .
+   Total variance is the sum of these variances and is 99/100n.
+
+Problem 2:
+
+a) 
+//here x is the number to be found in array arr.
+    all = 0; flag =0;
+    while all <= n
+	i = random(1,n)
+	if(arr[i] == x)
+		flag = 1
+		break;
+	if(bitchk[i] == 0)
+		all ++;
+		bitchk[i]=1;
+    if(flag==1)
+	    print(ELEMENT FOUND AT i)
+    else 
+	    print(Failed to find the element)
+
+b) We will need n searches on average to find the element. We have a geometric rv with a=1/n and ration = (n-1)/n. Taking expectation we get E(X) where X denotes the number of searches needed on average is Sum_i(1/n*(n-1)/n^i * i). This gives n. An intutive way of seeing it is, everytime we have a probability of 1/n of success. Number of successes in j tries will be j/n. E(X) in this case will be 1 when j = n (X represents the rv counting number of successes).
+
+c)We can keep the analysis same by normalizing the denominator by k i.e take occurance of the desired element per n/k occurances. So we get our previous answer of n/k searches required on average.
+
+d)This requires n lg n as seen in the bins problem.
+
+e)The element is equally likely to occur at any index. So probability of it occuring at i, is same as that of it occuring at n-i. Number of searches required on average = Sum_i(i*P(k==i)) P(k==i) = 1/n. So we end up with Sum_i(i)/n = n*(n+1)/2/n = (n+1)/2.
+The worst case running time will be n, in the case when the element is at the very end.
+
+f)If there are k occurances, normalizing as was done previous we consider n/k elements, with one occurance, and the expectation becomes approximately n/k. The worst case here occurs for all the elements under consideration occuring at the verye end in which case the running time becomes n-k+1.
+
+g) Average case= worst case = n.
+
+h) For k=0 Scramble Search does no better, it taking n tries. The Scamble the input array itself takes n iterations at least (since we have to scramble each element, to get a uniform random permutation). So Scrable search ends up performing worse that deterministic search which takes n/2 as oppsed to 3n/2 expected time of Scramble search. 
+i)Deterministic Search seems to be much better than the alternatives in both average case and worst case running times.
+

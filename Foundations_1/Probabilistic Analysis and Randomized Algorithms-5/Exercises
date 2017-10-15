@@ -1,0 +1,78 @@
+5.1.1
+Say we rank each candidate by assigning each a distinct number, then the better than relation can be expressed by using >=. By the transitive nature of this relation, if we want to have a best candidate in the first place, and then compare the best with the ith candidate, then i should be comparable to everyone before him.
+
+5.1.2
+We want Random(a,b), and we have with us Random(0,1). Say b-a can be represented in binary as a string of length n, then we generate an arbitrary string of length n using Random(0,1) and if it is less than or equal to b-a we use it, otherwise we throw it out and generate a new string. Now if we do use it, we add the string to a using normal binary addition, and return a+ the string. This will give us the Random(a,b) that we wanted.
+The expected running time will depend on how many strings we throw out. The probability of throwing out a string is the same as the probability that the string has value greater than b-a, or in other words P = (2^n - b-a)/2^n. Now to generate the string takes theta( log n) time, and the probability of keeping the string is (2^n - b-a)/2^n = x (say). x<1 and so we get a decreasing geometric series, and sum of x will give us theta(n)* Sum({(b-a)/2^n}^i) which ends up with
+(b-a)/(2^n x) = const. So expected running time is theta(n) i.e theta(log(b-a).
+
+5.1.3
+We generate two numbers using the biased random number generator. If they are both the same, we throw them out. If they both differ, we return the first number of the pair generated. Let p be the probability of generating 0 and 1-p of generating 1. Then we can easily see that in a given round, probabiliy of outputing 0 is p(1-p) and probability of outputting 1 is (1-p)p and so we have a equal probability of generating both 0 and 1. 
+THe expected running time will be theta(1) Sum((p^2 + (1-p)^2) ^ i) which again gives us a decreasing geometric series which converges to a constant, and so we end up with the expected running time of theta(1).
+
+
+5.2.1
+Probabiliy of hiring exactly 1 person, is probability of the first person being the best, which is 1/n. Probability of hiring everyone is probability of everyone being in ascending order, which for uniform distribution will be 1/n! (n factorial).
+
+5.2.2
+Probability of hiring exactly twice: Consider the n! possible permutations. Out of them, we hire exactly twice, if given that the best is in the i th position, we hire exactly twice if the first i-1 positions have their max in the first place. Consider the disjoint events, with each having candidate in the i th position and we hire exactly twice, this has a probability of 1/n * 1/i. The probability that we want, is the sum of these (since they are disjoint events) and so Sum_i(1/n * 1/i) = 1/n Sum_i(1/i) = theta( g(n)/n).
+
+5.2.3
+Let X_i denote the rv mapping the event of getting a value of i, in the ith roll. Then X = Sum_i(X_i). Here X is the rv mapping each event to the sum of n dice.E(X) = Sum_i E(X_i) by linearity of expectation. Now E(X_i) =(1+2+3+4+5+6)/6 = 3.5 . Therefore E(X) = 3.5*n 
+
+5.2.4
+let X_i be the irv of the i'th person getting their hat back, then P(X_i==1) is 1/n (Since they are randomly given 1 of n hats, and they want one particularly one). Let X be the RV denoting the number of people who get their hats back. X = Sum_i(X_i). Now E(X) = Sum_i(E(X_i) (by linearity of expecattion), giving Sum_i(1/n) = 1. So 1 person get their hat back.
+
+5.2.5
+The odds of an inversion is the same as the odds of not having an inversion (by symmetry) if X_(i,j) is the irv of the event ((i,j) is inverted), then E(X_(i,j)) is 1/2. Number of inversions represented the the rv X:
+X = Sum_(i,j)(X_(i,j)) = 1/2 * n(n-1)/2 = n*(n-1)/4.
+This agrees with the symmetry, and essentially says that half the pairs are inverted.
+
+
+3.3.1
+We can rewrite the prcedure randomize in place so that it starts off from the second element instead of the first one. And prior to the loop, we start manually take care of the first one by swapping it with a random element in the remaining part of the array. The modification in proof is trivial (i.e only the initialization condition changes). This takes care of the vacuous case.
+
+5.3.2
+Say the first array has the element x in the first place, then in the permuattion resulting from the procedure, it is not possible for the resultant array to have an x in the first place. So we see that a permutation with x as its starting element has a 0 probability of happening. And so the resultant permutation can't be a uniform random permutation.
+
+5.3.3
+I thought a little about this but couldn't see any immediate obvious results. So upon looking it up online, one intutive explanation is that the number of possible swappings is n^n whereas the number of possible permutations is n!, and since n^n is not divisible by n! it should not be possible.
+Another thing I thought of along the same line after seeing that was, if you start off by swapping the first and second elements(with probability 1/n) and then you go to the second element, then the probability of swapping the first and second again is 1/n, and since they are independent, the probability of maintaining the first two places will be 1/n^2 + 1/n^2 = 2/n^2, which seems odd. (the second 1/n^2 comes by the possibility of maintaining the first and second elements whereever they are without swapping). Now considering that the total number of permutations possible (in the first two places) is nC2 = n(n-1)/2, the fact that this had a probability of 2/n^2 seems odd.
+
+5.3.4
+Since offset can take any value from 1 to n, each element has a probability of ending up anywhere in the array. However clearly, only n permutations (namely the cyclic ones) are possible. This itself is sufficient to see that the resulting permutation is not univeformly random. 
+
+5.3.5
+The probability of an element equaling another element is (1-(j-1)/n^3). Given that there are n elements, we get the probability as (1-n/n^3) (for one element), now since we want it for all elements, we want the union of the events, and since they are independent, we get the product, (1-1/n^2)... n times, this is upper bounded by (1-1/n) bcoz of the inequality (1-1/n^2)^n <= (1-(1/n^2 * n))=(1-1/n).
+
+5.3.6
+If two or more priorities are identical, we have to break ties. However if we always pick one of the elements (say the first one), then we won't end up with a uniform random permutation. Instead, we could do a second pass through the array, and repeat the procedure (i.e. re assign keys and sort that subarray) for those with the same keys(this can be done in O(n) time(I mean, we can find repeated keys in O(n) time) after first sorting the array). A simpler option would have been to toss a coin, but that would only work for the case of two elements, and won't generalize to more than 2.
+
+5.3.7
+This does return a subset of size m equally likely amongst all subsets of size m. To prove it we use induction. Assume that given a fixed n, we vary m from 0 up m'(which is the m given to us). For m = 0, the base case, it clearly holds, i.e. there is one subset namely NullSet, and its returned with a probability 1. Now assume that it holds for m-1. The probability of adding an element not equal to n in the m th step is probability of picking something not equal to n((n-1)/n) multiplied with the probability of that element not belonging to S which is (n-m)/(n-1) and so multiplying the two together we get it to be (n-m)/n. So the probability of including the n th element is m/n. So the induction goes through and we end up with a uniformly random subset of size m.
+
+
+5.4.1
+Given our bday, we want the odd's that someone has the same bday as us to be atleast 1/2. Since we have fixed a day, the odds of anyones bday lying on that day is 1/n and these are all independent events. So if there are n/2 people, then P(one has a bday on same day as me) shall be 1/2. Same thing goes for the July 4th thing.
+
+5.4.2
+Like the birthday problem we get the result as theta(root(n)).
+
+5.4.3
+Pairwise independence is sufficient, since we only use the fact that they are independent to make the intersection of the two evens 1/n^2.
+
+5.4.4
+Proceeding via irv as seen in the corresponding section, we get that for the E(X) to become 1, where X is the rv denoting the number of triples having the same bday, kC3(1/n^2) = k(k-1)(k-2)/n^2 = 1. Therefore we get k = theta(n^(2/3)).
+
+5.4.5
+A k string over a set of size n forms a k permutation has the probability n(n-1)...(n-k)/n^k chance of occuring.
+
+5.4.6
+E(empty bins) = n - E(X) where X is the rv denoting the number of bins with balls. X=Sum_i X_i where X_i is the irv of the i th bin having a ball, given n tosses, which becomes (1-1/n)^n. Now summing, we obtain E(X) = (1-1/n)^n * n.
+There E(empty bins) = (1 - (1-1/n)^n)*n ~ n(1-1/e) ~ 0.63212 n
+
+5.4.7
+Using the formula we derived we have E(X) = n-k+1/2^k
+Putting k = lg n - 2 lg lg n, E(X) = (n-lgn+2lg lg n +1/2)/n/(lg n)^2 < (1-(lg n)^3/n) which goes to one with large n. Therefore this streak is extremely unlikely to occur.
+This is not rigorous, nor is it satisfactory. However as of now, I'm not comfortable enough with the topic, to warrant the effort which will be required to solve this problem.
+
